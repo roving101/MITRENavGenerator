@@ -45,7 +45,7 @@ The intended workflow for this first version is simple:
 1. Open the Python script.
 2. Edit the hardcoded TTP list.
 3. Run the script.
-4. Review the generated MITRE ATT&CK matrix output.
+4. Review the generated MITRE ATT&CK matrix json uploading it into MITRE ATT&CK Navigator output.
 
 Because the techniques are embedded directly in the source code, updating the matrix is as simple as modifying the list and re-running the script.
 
