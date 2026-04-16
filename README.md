@@ -56,6 +56,7 @@ positional arguments:
 options:
   -h, --help           show this help message and exit
   -o, --output OUTPUT  Output JSON file
+  -d, --disable-ids    Disable IDs in the output matrix
 ```
 2. Review the generated MITRE ATT&CK matrix json uploading it into MITRE ATT&CK Navigator output.
 
