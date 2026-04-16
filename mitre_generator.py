@@ -8973,7 +8973,7 @@ def generateJson(ttps,args):
 				layer["techniques"][idx]["enabled"] = True
 				seen=True
 		if not(seen):
-			print(f"Trovata TTP non esistente {ttp}")
+			print(f"Error: non-existent TTP {ttp}")
 			exit()
 
 def output(args):
