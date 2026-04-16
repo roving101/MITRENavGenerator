@@ -4,35 +4,38 @@ import sys
 import argparse
 from pathlib import Path
 
-parser = argparse.ArgumentParser(description=
-"""
-Parses MITRE ATT&CK TTPs from an input file and generates a JSON file ready to be imported into the MITRE ATT&CK Navigator (https://mitre-attack.github.io/attack-navigator/).
-JSON content is printed to stdout.
-""", formatter_class=argparse.RawDescriptionHelpFormatter)
-parser.add_argument("file", type=Path, help="Input file")
-args = parser.parse_args()
-try:
-    text = args.file.read_text(encoding="utf-8")
-except FileNotFoundError:
-    print(f"File not found: {args.file}")
-    exit()
-except Exception as e:
-    print(f"Error reading input file: {e}")
-    exit()
+def parser():
+	parser = argparse.ArgumentParser(description=
+	"""
+	Parses MITRE ATT&CK TTPs from an input file and generates a JSON file ready to be imported into the MITRE ATT&CK Navigator (https://mitre-attack.github.io/attack-navigator/).
+	JSON content is printed to stdout.
+	""", formatter_class=argparse.RawDescriptionHelpFormatter)
+	parser.add_argument("file", type=Path, help="Input file")
+	parser.add_argument("-o", "--output", type=Path, help="Output JSON file")
+	args = parser.parse_args()
+	try:
+		text = args.file.read_text(encoding="utf-8")
+	except FileNotFoundError:
+		print(f"File not found: {args.file}")
+		exit()
+	except Exception as e:
+		print(f"Error reading input file: {e}")
+		exit()
 
-MITRE_TTP_RE = re.compile(r"\b(T\d{4}(?:\.\d{3})?)\b", re.IGNORECASE)
+	MITRE_TTP_RE = re.compile(r"\b(T\d{4}(?:\.\d{3})?)\b", re.IGNORECASE)
 
-seen = set()
-ttps = []
- 
-for match in MITRE_TTP_RE.finditer(text):
-    ttp = match.group(1).upper()
-    if("." in ttp):
-        ttp = ttp.split(".")[0]
-    if ttp not in seen:
-        seen.add(ttp)
-        ttps.append(ttp)
- 
+	seen = set()
+	ttps = []
+	
+	for match in MITRE_TTP_RE.finditer(text):
+		ttp = match.group(1).upper()
+		if("." in ttp):
+			ttp = ttp.split(".")[0]
+		if ttp not in seen:
+			seen.add(ttp)
+			ttps.append(ttp)
+	return ttps,args
+
 layer = {
 	"name": "layer",
 	"versions": {
@@ -8958,12 +8961,32 @@ layer = {
 	"selectSubtechniquesWithParent": False,
 	"selectVisibleTechniques": False
 }
- 
-for ttp in ttps:
-    for idx,technique in enumerate(layer["techniques"]):
-        if str(ttp).lower() == str(technique["techniqueID"]).lower():
-            layer["techniques"][idx]["enabled"] = True           
-    
- 
-json.dump(layer, sys.stdout, ensure_ascii=False, indent=2)
-sys.stdout.write("\n")
+
+def generateJson(ttps):
+	for ttp in ttps:
+		seen=False
+		for idx,technique in enumerate(layer["techniques"]):
+			if str(ttp).lower() == str(technique["techniqueID"]).lower():
+				layer["techniques"][idx]["enabled"] = True
+				seen=True
+		if not(seen):
+			print(f"Trovata TTP non esistente {ttp}")
+			exit()
+
+def output(args):
+	if args.output is not None:
+		json_text = json.dumps(layer, ensure_ascii=False, indent=2)
+		args.output.write_text(json_text, encoding="utf-8")
+	else: 
+		json.dump(layer, sys.stdout, ensure_ascii=False, indent=2)
+		sys.stdout.write("\n")
+
+
+def main():
+	ttps, args = parser()
+	generateJson(ttps)
+	output(args)
+
+if __name__ == "__main__":
+	main()
+	
