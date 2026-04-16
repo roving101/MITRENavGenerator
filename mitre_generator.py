@@ -12,6 +12,7 @@ def parser():
 	""", formatter_class=argparse.RawDescriptionHelpFormatter)
 	parser.add_argument("file", type=Path, help="Input file")
 	parser.add_argument("-o", "--output", type=Path, help="Output JSON file")
+	parser.add_argument("-d","--disable-ids",action="store_true",help="Disable IDs in the output matrix")
 	args = parser.parse_args()
 	try:
 		text = args.file.read_text(encoding="utf-8")
@@ -8962,7 +8963,9 @@ layer = {
 	"selectVisibleTechniques": False
 }
 
-def generateJson(ttps):
+def generateJson(ttps,args):
+	if args.disable_ids:
+		layer["layout"]["showID"] = False
 	for ttp in ttps:
 		seen=False
 		for idx,technique in enumerate(layer["techniques"]):
@@ -8984,9 +8987,8 @@ def output(args):
 
 def main():
 	ttps, args = parser()
-	generateJson(ttps)
+	generateJson(ttps,args)
 	output(args)
 
 if __name__ == "__main__":
 	main()
-	
