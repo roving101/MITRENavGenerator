@@ -42,44 +42,23 @@ The current version should therefore be considered a foundation rather than a fi
 
 The intended workflow for this first version is simple:
 
-1. Open the Python script.
-2. Edit the hardcoded TTP list.
-3. Run the script.
-4. Review the generated MITRE ATT&CK matrix json uploading it into MITRE ATT&CK Navigator output.
+1. Run the script with the following usage parameters:
+``` bash
+usage: mitre_generator.py [-h] [-o OUTPUT] file
 
-Because the techniques are embedded directly in the source code, updating the matrix is as simple as modifying the list and re-running the script.
+        Parses MITRE ATT&CK TTPs from an input file and generates a JSON file ready to be imported into the MITRE ATT&CK Navigator (https://mitre-attack.github.io/attack-navigator/).
+        JSON content is printed to stdout.
 
-## Example Input Concept
 
-A typical hardcoded list inside the script may look conceptually like this:
+positional arguments:
+  file                 Input file
 
-```python
-text = """
-,T1560.001,
-"T1560.002"
-T1204.001 hjkl
-hjkljkhl T1059 hjklhjkl
-T1553.005 - 
-T1082
-T1083
-T1059.006
-T1547.001
-T1005
-T1567.002
-T1105
-T1078
-T1555.003
-T1555
-T1555.004
-T1003
-T1528
-T1018
-T1046
- 
-"""
+options:
+  -h, --help           show this help message and exit
+  -o, --output OUTPUT  Output JSON file
 ```
+2. Review the generated MITRE ATT&CK matrix json uploading it into MITRE ATT&CK Navigator output.
 
-The exact implementation may vary, but the current model assumes that the script reads from a list like the one above and maps those entries into the corresponding ATT&CK matrix structure.
 
 ## Notes
 
