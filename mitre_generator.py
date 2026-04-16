@@ -1,35 +1,27 @@
 import json
 import re
 import sys
- 
-MITRE_TTP_RE = re.compile(r"\b(T\d{4}(?:\.\d{3})?)\b", re.IGNORECASE)
- 
-# text = sys.stdin.read()
- 
-text = """
-,T1560.001,
-"T1560.002"
-T1204.001 hjkl
-hjkljkhl T1059 hjklhjkl
-T1553.005 - 
-T1082
-T1083
-T1059.006
-T1547.001
-T1005
-T1567.002
-T1105
-T1078
-T1555.003
-T1555
-T1555.004
-T1003
-T1528
-T1018
-T1046
- 
+import argparse
+from pathlib import Path
+
+parser = argparse.ArgumentParser(description=
 """
- 
+Parses MITRE ATT&CK TTPs from an input file and generates a JSON file ready to be imported into the MITRE ATT&CK Navigator (https://mitre-attack.github.io/attack-navigator/).
+JSON content is printed to stdout.
+""", formatter_class=argparse.RawDescriptionHelpFormatter)
+parser.add_argument("file", type=Path, help="Input file")
+args = parser.parse_args()
+try:
+    text = args.file.read_text(encoding="utf-8")
+except FileNotFoundError:
+    print(f"File not found: {args.file}")
+    exit()
+except Exception as e:
+    print(f"Error reading input file: {e}")
+    exit()
+
+MITRE_TTP_RE = re.compile(r"\b(T\d{4}(?:\.\d{3})?)\b", re.IGNORECASE)
+
 seen = set()
 ttps = []
  
@@ -8975,4 +8967,3 @@ for ttp in ttps:
  
 json.dump(layer, sys.stdout, ensure_ascii=False, indent=2)
 sys.stdout.write("\n")
- 
