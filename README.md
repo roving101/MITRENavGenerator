@@ -14,8 +14,7 @@ At this stage, the design is intentionally minimal. Instead of focusing on input
 
 This version is built around the following assumptions:
 
-- TTPs are defined manually inside the Python script.
-- The input consists of ATT&CK technique IDs such as `T1059`, `T1566.001`, or similar.
+- The input consists of ATT&CK technique IDs such as `T1059`, `T1566.001`, or similar, contained in a file with a technique on each row.
 - The script generates a MITRE ATT&CK matrix view based on the techniques provided.
 - The project is an initial release and will be updated in future iterations.
 
