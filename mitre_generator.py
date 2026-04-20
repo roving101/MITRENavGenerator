@@ -13,6 +13,7 @@ def parser():
 	parser.add_argument("file", type=Path, help="Input file")
 	parser.add_argument("-o", "--output", type=Path, help="Output JSON file")
 	parser.add_argument("-d","--disable-ids",action="store_true",help="Disable IDs in the output matrix")
+	parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
 	args = parser.parse_args()
 	try:
 		text = args.file.read_text(encoding="utf-8")
@@ -30,11 +31,15 @@ def parser():
 	
 	for match in MITRE_TTP_RE.finditer(text):
 		ttp = match.group(1).upper()
+		if args.verbose:
+				print("found: " + ttp)
 		if("." in ttp):
 			ttp = ttp.split(".")[0]
 		if ttp not in seen:
 			seen.add(ttp)
 			ttps.append(ttp)
+			if args.verbose:
+				print("added: " + ttp)
 	return ttps,args
 
 layer = {
