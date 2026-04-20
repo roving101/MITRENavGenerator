@@ -103,7 +103,7 @@ layer = {
 			"tactic": "persistence",
 			"color": "#3182bd",
 			"comment": "",
-			"enabled": True,
+			"enabled": False,
 			"metadata": [],
 			"links": [],
 			"showSubtechniques": False
@@ -113,7 +113,7 @@ layer = {
 			"tactic": "privilege-escalation",
 			"color": "#3182bd",
 			"comment": "",
-			"enabled": True,
+			"enabled": False,
 			"metadata": [],
 			"links": [],
 			"showSubtechniques": False
@@ -2183,7 +2183,7 @@ layer = {
 			"tactic": "initial-access",
 			"color": "#3182bd",
 			"comment": "",
-			"enabled": True,
+			"enabled": False,
 			"metadata": [],
 			"links": [],
 			"showSubtechniques": False
@@ -7093,7 +7093,7 @@ layer = {
 			"tactic": "credential-access",
 			"color": "#3182bd",
 			"comment": "",
-			"enabled": True,
+			"enabled": False,
 			"metadata": [],
 			"links": [],
 			"showSubtechniques": False
@@ -8303,7 +8303,7 @@ layer = {
 			"tactic": "defense-evasion",
 			"color": "#3182bd",
 			"comment": "",
-			"enabled": True,
+			"enabled": False,
 			"metadata": [],
 			"links": [],
 			"showSubtechniques": False
