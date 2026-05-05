@@ -1,8 +1,7 @@
 # MITRE ATT&CK Matrix Generator
 
 A lightweight Python script that generates a MITRE ATT&CK matrix starting from a list of TTP technique IDs.
-
-This first version is intentionally simple: the goal is to provide a fast and practical way to visualize a predefined set of ATT&CK techniques without requiring external input files, APIs, or command-line arguments. The project is expected to evolve over time, with future updates introducing more flexible input methods, validation, customization, and output improvements.
+The project is expected to evolve over time, with future updates introducing more flexible input methods, validation, customization, and output improvements.
 
 ## Overview
 
