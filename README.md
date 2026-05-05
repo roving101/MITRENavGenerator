@@ -55,7 +55,7 @@ options:
 Usage Screenshots:
 
 1. Input File
-<img width="166" height="809" alt="image" src="https://github.com/user-attachments/assets/4a520c62-65d4-4c8c-9529-38a21cb376b5" />
+<img width="102" height="500" alt="image" src="https://github.com/user-attachments/assets/4a520c62-65d4-4c8c-9529-38a21cb376b5" />
 2.Visualization of the JSON in the MITRE Navigator
 <img width="1900" height="613" alt="image" src="https://github.com/user-attachments/assets/94429c0c-7d01-4dc1-8bc1-ef6ef418a6c4" />
 
